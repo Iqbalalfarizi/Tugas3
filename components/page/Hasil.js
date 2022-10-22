@@ -4,7 +4,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import HasilBox from "../HasilBox";
 
-export default function Hasil({ navigation }) {
+export default function Hasil({ route, navigation }) {
+  const { locKeberangkatan, locTujuan, tanggal } = route.params;
+
   return (
     <View style={styles.container}>
       <View style={styles.background}>
@@ -13,7 +15,6 @@ export default function Hasil({ navigation }) {
             style={styles.iconHeader}
             onPress={() => {
               navigation.goBack();
-              console.log("Lalallal");
             }}
           >
             <Ionicons
@@ -27,9 +28,26 @@ export default function Hasil({ navigation }) {
         </View>
         <Text style={styles.title}>Hiling.id</Text>
         <Text style={styles.childTitle}>Hasil Pencarian Penerbangan</Text>
-        <Text style={styles.childTitle}>Tanggal Keberangkatan</Text>
+        <Text style={styles.childTitle}>{tanggal}</Text>
       </View>
-      <HasilBox />
+      <HasilBox
+        lokasiAsal={locKeberangkatan}
+        lokasiTujuan={locTujuan}
+        maskapai="Garuda"
+        tanggal={tanggal}
+      />
+      <HasilBox
+        lokasiAsal={locKeberangkatan}
+        lokasiTujuan={locTujuan}
+        maskapai="Sriwijaya"
+        tanggal={tanggal}
+      />
+      <HasilBox
+        lokasiAsal={locKeberangkatan}
+        lokasiTujuan={locTujuan}
+        maskapai="Lion Air"
+        tanggal={tanggal}
+      />
       <View style={styles.footer}>
         <Text style={{ fontSize: 17, color: "rgba(0,0,0, 0.3)" }}>
           Copyright IqbalAlfarizi-120140122

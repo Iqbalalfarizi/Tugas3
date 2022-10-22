@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Pressable,
@@ -13,6 +13,9 @@ import { Fontisto } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function HalamanDepan({ navigation }) {
+  const [locKeberangkatan, setLocKeberangkatan] = useState("");
+  const [locTujuan, setLocTujuan] = useState("");
+  const [tanggal, setTanggal] = useState("");
   return (
     <View style={styles.container}>
       <View style={styles.background}>
@@ -33,7 +36,11 @@ export default function HalamanDepan({ navigation }) {
               size={20}
               color="#86B257"
             />
-            <TextInput placeholder="Masukkan Lokasi Keberangkatan" />
+            <TextInput
+              placeholder="Masukkan Lokasi Keberangkatan"
+              onChangeText={(newText) => setLocKeberangkatan(newText)}
+              defaultValue={locKeberangkatan}
+            />
           </View>
         </View>
         <View style={styles.column}>
@@ -45,7 +52,11 @@ export default function HalamanDepan({ navigation }) {
               size={20}
               color="#86B257"
             />
-            <TextInput placeholder="Masukkan Lokasi Tujuan" />
+            <TextInput
+              placeholder="Masukkan Lokasi Tujuan"
+              onChangeText={(newText) => setLocTujuan(newText)}
+              defaultValue={locTujuan}
+            />
           </View>
         </View>
         <View style={styles.column}>
@@ -57,14 +68,23 @@ export default function HalamanDepan({ navigation }) {
               size={20}
               color="#86B257"
             />
-            <TextInput placeholder="Masukkan Tanggal Keberangkatan" />
+            <TextInput
+              placeholder="Masukkan Tanggal Keberangkatan"
+              onChangeText={(newText) => setTanggal(newText)}
+              defaultValue={tanggal}
+            />
           </View>
         </View>
         <Pressable
           style={styles.button}
           onPress={() => {
-            navigation.navigate("hasil");
-            console.log("hallo");
+            if (locKeberangkatan === "" || locTujuan === "" || tanggal === "")
+              return;
+            navigation.navigate("hasil", {
+              locKeberangkatan: locKeberangkatan,
+              locTujuan: locTujuan,
+              tanggal: tanggal,
+            });
           }}
         >
           <Text style={styles.buttonText}>Cari</Text>
@@ -137,8 +157,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   footer: {
-    position: "absolute",
-    bottom: 40,
+    marginTop: 180,
     alignSelf: "center",
   },
   iconHeader: {
